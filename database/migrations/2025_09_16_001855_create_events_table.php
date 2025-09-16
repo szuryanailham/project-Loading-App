@@ -18,6 +18,7 @@ return new class extends Migration
         $table->string('location')->nullable();   
         $table->enum('price_type', ['free', 'paid'])->default('free'); 
         $table->string('price')->nullable();
+        $table->enum('registration_status', ['open', 'closed'])->default('open');
         $table->string('external_link')->nullable();
         $table->timestamps();
         });

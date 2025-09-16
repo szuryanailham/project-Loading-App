@@ -19,9 +19,9 @@ class Event extends Model
         'external_link'
     ];
 
-    // // Relasi many-to-many dengan Registration
-    // public function registrations()
-    // {
-    //     return $this->belongsToMany(Registration::class, 'event_registration');
-    // }
+    // Relasi many-to-many dengan Registration
+    public function registrations()
+    {
+        return $this->belongsToMany(Registration::class, 'event_registration');
+    }
 }
