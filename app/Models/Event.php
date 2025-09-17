@@ -20,8 +20,8 @@ class Event extends Model
     ];
 
     // Relasi many-to-many dengan Registration
-    public function registrations()
+  public function registrations()
     {
-        return $this->belongsToMany(Registration::class, 'event_registration');
+        return $this->hasMany(Registration::class);
     }
 }

@@ -1,32 +1,56 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Exports;
 
-return new class extends Migration
+use App\Models\Registration;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+
+class RegistrationsExport implements FromCollection, WithHeadings
 {
-    public function up(): void
+    /**
+     * Ambil semua data registrations
+     */
+    public function collection()
     {
-        Schema::create('registrations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('event_id')->constrained('events') ;
-            $table->string('name');                    
-            $table->string('email');          
-            $table->string('phone')->nullable();      
-            $table->string('Alamat')->nullable();    
-            $table->date('birth_date')->nullable();      
-            $table->enum('gender', ['male', 'female'])->nullable(); 
-            $table->enum('source', ['social_media', 'friend', 'School', 'other'])->nullable(); 
-            $table->string('payment_proof')->nullable();  
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->text('notes')->nullable();
-            $table->timestamps();
-        });
+        return Registration::select(
+            'id',
+            'event_id',
+            'name',
+            'email',
+            'phone',
+            'Alamat',
+            'birth_date',
+            'gender',
+            'source',
+            'payment_proof',
+            'status',
+            'notes',
+            'created_at',
+            'updated_at'
+        )->get();
     }
 
-    public function down(): void
+    /**
+     * Header kolom untuk Excel
+     */
+    public function headings(): array
     {
-        Schema::dropIfExists('registrations');
+        return [
+            'ID',
+            'Event ID',
+            'Name',
+            'Email',
+            'Phone',
+            'Alamat',
+            'Birth Date',
+            'Gender',
+            'Source',
+            'Payment Proof',
+            'Status',
+            'Notes',
+            'Created At',
+            'Updated At',
+        ];
     }
-};
+}

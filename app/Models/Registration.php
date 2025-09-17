@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Event;
 class Registration extends Model
 {
     use HasFactory;
@@ -13,9 +13,8 @@ class Registration extends Model
     /**
      * Relasi: Registrasi bisa mengikuti banyak event
      */
-    public function events()
+    public function event()
     {
-        return $this->belongsToMany(Event::class, 'event_registration')
-            ->withTimestamps();
+        return $this->belongsTo(Event::class); 
     }
 }

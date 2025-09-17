@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\events;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
-use App\Models\Registration;
 use Illuminate\Http\Request;
-
+use App\Models\Registration;
+use App\Exports\RegistrationsExport;
+use Maatwebsite\Excel\Facades\Excel;
 class registerController extends Controller
 {
     /**
@@ -19,6 +18,18 @@ class registerController extends Controller
     return view('registrations.form', compact('events'));
 
 }
+
+public function export()
+{
+    return Excel::download(new RegistrationsExport, 'registrations.xlsx');
+}
+
+public function showAll()
+{
+$registrations = Registration::with('event')->orderBy('created_at', 'desc')->paginate(10);
+return view('dashboard-admin.registration', compact('registrations'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -75,15 +86,15 @@ class registerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(events $events)
+    public function show(Event $events)
     {
-        //
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(events $events)
+    public function edit(Event $events)
     {
         //
     }
@@ -91,7 +102,7 @@ class registerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, events $events)
+    public function update(Request $request, Event $events)
     {
         //
     }
@@ -99,8 +110,13 @@ class registerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(events $events)
-    {
-        //
+   public function destroy(Registration $registration)
+{
+    try {
+        $registration->delete(); // hapus data
+        return redirect()->back()->with('success', 'Data berhasil dihapus!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
     }
+}
 }
