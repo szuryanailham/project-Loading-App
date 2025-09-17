@@ -119,4 +119,20 @@ return view('dashboard-admin.registration', compact('registrations'));
         return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
     }
 }
+
+public function search(Request $request)
+{
+    $search = $request->input('search');
+
+    $registrations = Registration::with('event')
+        ->when($search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+    return view('dashboard-admin.registration', compact('registrations'));
+}
+
 }

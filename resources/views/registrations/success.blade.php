@@ -43,9 +43,16 @@
       </a>
     </div>
 
-    <!-- Button -->
-    <div class="mt-6 flex justify-center space-x-4">
+    <!-- Buttons -->
+    <div class="mt-6 flex justify-center gap-4">
       <a href="/" class="px-6 py-2 text-white bg-green-500 rounded-lg shadow hover:bg-green-600 transition transform hover:scale-105">
         Home
       </a>
-      <a href="https://wa.me/6281234567890" target="_blan_
+      <a href="https://wa.me/6281234567890" target="_blank" class="px-6 py-2 text-white bg-amber-500 rounded-lg shadow hover:bg-amber-600 transition transform hover:scale-105">
+        WhatsApp
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>

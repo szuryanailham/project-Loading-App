@@ -27,3 +27,5 @@ Route::delete('/registrations/{registration}', [registerController::class, 'dest
 
 Route::get('/registrations/export', [registerController::class, 'export'])
 ->name('registrations.export');
+
+Route::get('/registrations/search', [registerController::class, 'search'])->name('registrations.search');
