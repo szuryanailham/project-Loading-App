@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Exports;
-
-use App\Models\Registration;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Facades\DB;

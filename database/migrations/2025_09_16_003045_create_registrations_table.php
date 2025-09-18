@@ -1,56 +1,41 @@
 <?php
 
-namespace App\Exports;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use App\Models\Registration;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-
-class RegistrationsExport implements FromCollection, WithHeadings
+return new class extends Migration
 {
     /**
-     * Ambil semua data registrations
+     * Run the migrations.
      */
-    public function collection()
+    public function up(): void
     {
-        return Registration::select(
-            'id',
-            'event_id',
-            'name',
-            'email',
-            'phone',
-            'Alamat',
-            'birth_date',
-            'gender',
-            'source',
-            'payment_proof',
-            'status',
-            'notes',
-            'created_at',
-            'updated_at'
-        )->get();
+        Schema::create('registrations', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('event_id')->nullable(); // relasi ke tabel events
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('alamat')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->string('source')->nullable(); // sumber informasi
+            $table->string('payment_proof')->nullable();
+            $table->string('status')->default('pending'); // pending, confirmed, cancelled
+            $table->text('notes')->nullable();
+            $table->timestamps();
+
+            // Jika ada tabel events, tambahkan foreign key:
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+        });
     }
 
     /**
-     * Header kolom untuk Excel
+     * Reverse the migrations.
      */
-    public function headings(): array
+    public function down(): void
     {
-        return [
-            'ID',
-            'Event ID',
-            'Name',
-            'Email',
-            'Phone',
-            'Alamat',
-            'Birth Date',
-            'Gender',
-            'Source',
-            'Payment Proof',
-            'Status',
-            'Notes',
-            'Created At',
-            'Updated At',
-        ];
+        Schema::dropIfExists('registrations');
     }
-}
+};

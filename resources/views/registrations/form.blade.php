@@ -161,7 +161,7 @@
   </div>
 
   <!-- External JS untuk multi-step form -->
-  <script src="{{ asset('js/multistep.js') }}"></script>
+  <script src="/js/multistep.js"></script>
 
 </body>
 </html>

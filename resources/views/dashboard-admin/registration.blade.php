@@ -103,5 +103,5 @@
     </div>
 
     <!-- Load JavaScript eksternal -->
-    <script src="{{ asset('js/alerts.js') }}"></script>
+    <script src="js/alerts.js"></script>
 @endsection
