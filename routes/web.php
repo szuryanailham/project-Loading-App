@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\eventsController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\registerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 
 // Registrasi event (User)
-Route::get('/daftar-event', [RegisterController::class, 'index'])
+Route::get('/daftar-event', [registerController::class, 'index'])
     ->name('event.register.form');
-Route::post('/event/register', [RegisterController::class, 'store'])
+Route::post('/event/register', [registerController::class, 'store'])
     ->name('event.register');
 
 // Admin dashboard
@@ -27,7 +27,7 @@ Route::prefix('admin/dashboard')->group(function () {
         return view('dashboard-admin.dashboard');
     })->name('admin.dashboard');
 
-Route::get('/registration', [RegisterController::class, 'showAll'])
+Route::get('/registration', [registerController::class, 'showAll'])
         ->name('registrations.index');
         
 Route::resource('events',  eventsController::class);
@@ -35,11 +35,11 @@ Route::resource('events',  eventsController::class);
 });
 
 // Registrations management
-Route::delete('/registrations/{registration}', [RegisterController::class, 'destroy'])
+Route::delete('/registrations/{registration}', [registerController::class, 'destroy'])
     ->name('registrations.destroy');
 
-Route::get('/registrations/export', [RegisterController::class, 'export'])
+Route::get('/registrations/export', [registerController::class, 'export'])
     ->name('registrations.export');
 
-Route::get('/registrations/search', [RegisterController::class, 'search'])
+Route::get('/registrations/search', [registerController::class, 'search'])
     ->name('registrations.search');
