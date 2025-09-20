@@ -57,11 +57,13 @@
           </div>
 
           <!-- Nomor HP -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Nomor HP</label>
-            <input type="text" name="phone" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500">
-          </div>
-
+         <div>
+  <label class="block text-sm font-medium text-gray-700">Nomor HP</label>
+  <input type="text" name="phone" 
+         value="+628" 
+         class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500"
+         oninput="if(!this.value.startsWith('+628')) this.value='+628';">
+</div>
           <!-- Alamat -->
           <div>
             <label class="block text-sm font-medium text-gray-700">Alamat</label>
@@ -87,63 +89,83 @@
       </div>
 
       <!-- ================= STEP 2 : Pilih Event ================= -->
-      <div class="step hidden">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="step hidden">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-          <!-- Pilih Event -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Pilih Events</label>
-            <select id="eventSelect" name="event_id" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500" required>
-              <option value="">-- Pilih Event --</option>
-              @foreach($events as $event)
-                <option value="{{ $event->id }}" data-price="{{ $event->price }}">
-                  {{ $event->name }}
-                </option>
-              @endforeach
-            </select>
-            <!-- Tempat menampilkan harga -->
-            <p id="eventPrice" class="mt-2 text-gray-700 font-medium hidden">Harga: Rp 0</p>
-          </div>
+    <!-- Pilih Event -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Pilih Events</label>
+      <select id="eventSelect" name="event_id" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500" required>
+        <option value="">-- Pilih Event --</option>
+        @foreach($events as $event)
+          <option value="{{ $event->id }}" data-price="{{ $event->price }}">
+            {{ $event->name }}
+          </option>
+        @endforeach
+      </select>
+      <!-- Tempat menampilkan harga -->
+      <p id="eventPrice" class="mt-2 text-gray-700 font-medium hidden">Harga: Rp 0</p>
+    </div>
 
-          <!-- Source -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Dari mana tahu event kami?</label>
-            <select name="source" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500">
-              <option value="">-- Select Source --</option>
-              <option value="social_media">Social Media</option>
-              <option value="friend">Teman</option>
-              <option value="school">Sekolah</option>
-              <option value="family">Keluarga</option>
-              <option value="other">Lainnya</option>
-            </select>
-          </div>
-        </div>
+    <!-- Source -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Dari mana tahu event kami?</label>
+      <select id="sourceSelect" name="source" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500">
+        <option value="">-- Select Source --</option>
+        <option value="social_media">Social Media</option>
+        <option value="friend">Teman</option>
+        <option value="school">Sekolah</option>
+        <option value="family">Keluarga</option>
+        <option value="other">Lainnya</option>
+      </select>
 
-        <!-- Notes -->
-        <div class="mt-4">
-          <label class="block text-sm font-medium text-gray-700">Spill dong alasan ikut event ini?</label>
-          <textarea name="notes" rows="3" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500"></textarea>
-        </div>
-      </div>
+      <!-- Pilihan Social Media -->
+      <select id="socialMediaSelect" name="social_media" class="hidden w-full mt-3 px-4 py-2 border rounded-lg focus:ring-amber-500">
+        <option value="">-- Pilih Platform --</option>
+        <option value="tiktok">Tiktok</option>
+        <option value="instagram">Instagram</option>
+        <option value="whatsapp">WhatsApp</option>
+      </select>
+
+      <!-- Input jika pilih Lainnya -->
+      <input type="text" id="otherSourceInput" name="other_source" placeholder="Sebutkan sumber lainnya"
+        class="hidden w-full mt-3 px-4 py-2 border rounded-lg focus:ring-amber-500">
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="mt-4">
+    <label class="block text-sm font-medium text-gray-700">Spill dong alasan ikut event ini?</label>
+    <textarea name="notes" rows="3" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500"></textarea>
+  </div>
+</div>
+
 
       <!-- ================= STEP 3 : Pembayaran ================= -->
-      <div class="step hidden">
-        <!-- Info Rekening -->
-        <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg mb-4">
-          <h2 class="font-semibold text-amber-800 mb-2">Informasi Pembayaran</h2>
-          <ul class="text-gray-700 text-sm space-y-1">
-            <li><strong>Bank:</strong> BCA</li>
-            <li><strong>Account Number:</strong> 1234567890</li>
-            <li><strong>Account Name:</strong> Yayasan Konseling Sehat</li>
-          </ul>
-        </div>
+     <!-- ================= STEP 3 : Pembayaran ================= -->
+<div class="step hidden">
+  <!-- Info Rekening -->
+  <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg mb-4">
+    <h2 class="font-semibold text-amber-800 mb-2">Informasi Pembayaran</h2>
+    <ul class="text-gray-700 text-sm space-y-1">
+      <li><strong>Bank:</strong> BCA</li>
+      <li><strong>Account Number:</strong> 1234567890</li>
+      <li><strong>Account Name:</strong> Yayasan Konseling Sehat</li>
+    </ul>
+  </div>
 
-        <!-- Upload Bukti -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Upload Bukti Pembayaran</label>
-          <input type="file" name="payment_proof" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500">
-        </div>
-      </div>
+  <!-- Harga Event -->
+  <div class="mb-4">
+    <p id="paymentEventPrice" class="text-lg font-semibold text-amber-700">Harga: Rp 0</p>
+  </div>
+
+  <!-- Upload Bukti -->
+  <div>
+    <label class="block text-sm font-medium text-gray-700">Upload Bukti Pembayaran</label>
+    <input type="file" name="payment_proof" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500">
+  </div>
+</div>
+
 
       <!-- ================= BUTTONS ================= -->
       <div class="flex justify-between mt-8">
@@ -162,6 +184,7 @@
 
   <!-- External JS untuk multi-step form -->
   <script src="/js/multistep.js"></script>
+  <script src="/js/inputSettings.js"></script>
 
 </body>
 </html>

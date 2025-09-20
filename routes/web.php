@@ -1,31 +1,45 @@
 <?php
 
-use App\Http\Controllers\eventsController;
-use App\Http\Controllers\registerController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\RegisterController;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
+// Landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', [registerController::class, 'index'])->name('event.register.form');
-Route::post('/event/register', [registerController::class, 'store'])->name('event.register');
+// Registrasi event (User)
+Route::get('/daftar-event', [RegisterController::class, 'index'])
+    ->name('event.register.form');
+Route::post('/event/register', [RegisterController::class, 'store'])
+    ->name('event.register');
 
-// admin routeer
-Route::get('/admin/dashboard', function(){
-    return view('dashboard-admin.dashboard');
+// Admin dashboard
+Route::prefix('admin/dashboard')->group(function () {
+    Route::get('/', function () {
+        return view('dashboard-admin.dashboard');
+    })->name('admin.dashboard');
+
+Route::get('/registration', [RegisterController::class, 'showAll'])
+        ->name('registrations.index');
+        
+Route::resource('events', EventsController::class);
+
 });
 
-Route::get('/admin/dashboard/registration', [RegisterController::class, 'showAll'])
-    ->name('registrations.index');
-
-    
-Route::delete('/registrations/{registration}', [registerController::class, 'destroy'])
+// Registrations management
+Route::delete('/registrations/{registration}', [RegisterController::class, 'destroy'])
     ->name('registrations.destroy');
 
+Route::get('/registrations/export', [RegisterController::class, 'export'])
+    ->name('registrations.export');
 
-Route::get('/registrations/export', [registerController::class, 'export'])
-->name('registrations.export');
-
-Route::get('/registrations/search', [registerController::class, 'search'])->name('registrations.search');
+Route::get('/registrations/search', [RegisterController::class, 'search'])
+    ->name('registrations.search');

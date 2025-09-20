@@ -10,7 +10,8 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
         $table->id();
-        $table->string('name');                   
+        $table->string('name');    
+        $table->string('slug')->unique();               
         $table->string('poster_img')->nullable(); 
         $table->text('description')->nullable(); 
         $table->date('date');                     

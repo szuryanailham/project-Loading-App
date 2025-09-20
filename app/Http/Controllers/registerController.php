@@ -42,7 +42,7 @@ return view('dashboard-admin.registration', compact('registrations'));
     /**
      * Store a newly created resource in storage.
      */
-   public function store(Request $request)
+public function store(Request $request)
 {
     try {
         // Validasi data
@@ -55,24 +55,34 @@ return view('dashboard-admin.registration', compact('registrations'));
             'gender'        => 'nullable|in:male,female',
             'event_id'      => 'required|integer|exists:events,id',
             'source'        => 'nullable|string|max:50',
+            'social_media'  => 'nullable|string|max:50', // tambahkan validasi
             'notes'         => 'nullable|string',
             'payment_proof' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
+        // Handle upload bukti pembayaran
+        if ($request->hasFile('payment_proof')) {
+            $filename = time() . '_' . $request->file('payment_proof')->getClientOriginalName();
+            $path = $request->file('payment_proof')->storeAs('payment_proofs', $filename, 'public');
+            $validated['payment_proof'] = $path;
+        }
 
-        // Upload bukti pembayaran jika ada
-       if ($request->hasFile('payment_proof')) {
-    $filename = time() . '_' . $request->file('payment_proof')->getClientOriginalName();
-    $path = $request->file('payment_proof')->storeAs('payment_proofs', $filename, 'public');
-    $validated['payment_proof'] = $path;
-}
-    
+        // Jika source = social_media, simpan field social_media
+        if ($request->source === 'social_media') {
+            $validated['source'] = $request->social_media;
+        }
+
+        // Jika ada input other_source, override source
+        if ($request->filled('other_source')) {
+            $validated['source'] = $request->other_source;
+        }
+
         // Simpan ke database
-        Registration::create($validated);
-
+       $registration = Registration::create($validated);
+       $eventName = Event::where('id', $registration->event_id)->value('name');
         sleep(2);
+        return view('registrations.success');
 
-   return view('registrations.success');
 
     } catch (\Exception $e) {
         // Jika ada error selain validasi
@@ -81,6 +91,7 @@ return view('dashboard-admin.registration', compact('registrations'));
             ->withInput();
     }
 }
+
 
 
     /**

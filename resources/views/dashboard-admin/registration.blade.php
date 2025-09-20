@@ -68,7 +68,16 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ $index + 1 }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $registration->name }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $registration->email }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $registration->phone ?? '-' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @if($registration->phone)
+                                <a href="https://wa.me/{{ $registration->phone }}" 
+                                class="text-blue-600 hover:underline">
+                                    {{ $registration->phone }}
+                                </a>
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $registration->event->name ?? '-' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             @if($registration->payment_proof)
@@ -103,5 +112,5 @@
     </div>
 
     <!-- Load JavaScript eksternal -->
-    <script src="js/alerts.js"></script>
+    <script src="/js/alert.js"></script>
 @endsection

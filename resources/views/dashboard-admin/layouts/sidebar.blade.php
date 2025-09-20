@@ -1,7 +1,7 @@
 <aside class="w-64 bg-white shadow-lg h-screen p-6 flex flex-col">
     <!-- Logo / Title -->
     <div class="flex items-center justify-center mb-8">
-        <img src="/images/logo.svg" alt="Logo" class="h-10 w-15 mr-2">
+        <img src="/images/logo.png" alt="Logo" class="h-12 w-15 mr-2">
     </div>
 
     <!-- Navigation -->
@@ -26,7 +26,7 @@
             <span class="font-medium">Users</span>
         </a>
 
-        <a href="" 
+        <a href="/admin/dashboard/events" 
            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-amber-100 transition 
                   {{ request()->routeIs('events.*') ? 'bg-amber-200' : '' }}">
             <!-- Events Icon -->
@@ -36,7 +36,7 @@
             <span class="font-medium">Events</span>
         </a>
 
-        <a href="" 
+        <a href="/admin/dashboard/registration" 
            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-amber-100 transition 
                   {{ request()->routeIs('registrations.*') ? 'bg-amber-200' : '' }}">
             <!-- Registrations Icon -->
@@ -49,6 +49,6 @@
 
     <!-- Footer / Info -->
     <div class="mt-auto text-center text-gray-500 text-sm">
-        &copy; 2025 My Dashboard
+        &copy; 2025 Loading Inisght Process
     </div>
 </aside>

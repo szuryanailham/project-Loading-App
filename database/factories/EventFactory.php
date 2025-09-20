@@ -17,6 +17,7 @@ class EventFactory extends Factory
         return [
             'name' => $this->faker->sentence(3),
             'poster_img' => null, // bisa disesuaikan jika mau pakai faker image
+            'slug' => Str::slug($this->faker->sentence(3)), 
             'description' => $this->faker->paragraph(),
             'date' => $this->faker->date(),
             'event_type' => $this->faker->randomElement(['offline', 'online']),
