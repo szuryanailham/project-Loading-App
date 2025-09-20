@@ -64,7 +64,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ $index + 1 }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             @if($event->poster_img)
-                                <img src="{{ asset('storage/public' . $event->poster_img) }}" 
+                                <img src="{{ asset('public/storage/events/posters' . $event->poster_img) }}" 
                                      alt="{{ $event->name }}" class="h-12 rounded">
                             @else
                                 <span class="text-gray-500 italic">No Poster</span>
