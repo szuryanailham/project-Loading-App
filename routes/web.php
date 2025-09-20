@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventsController;
+use App\Http\Controllers\eventsController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -30,7 +30,7 @@ Route::prefix('admin/dashboard')->group(function () {
 Route::get('/registration', [RegisterController::class, 'showAll'])
         ->name('registrations.index');
         
-Route::resource('events', EventsController::class);
+Route::resource('events',  eventsController::class);
 
 });
 
