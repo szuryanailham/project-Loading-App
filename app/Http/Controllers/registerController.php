@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Registration;
 use App\Exports\RegistrationsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 class registerController extends Controller
 {
     /**
@@ -121,10 +122,17 @@ public function store(Request $request)
     /**
      * Remove the specified resource from storage.
      */
-   public function destroy(Registration $registration)
+public function destroy(Registration $registration)
 {
     try {
-        $registration->delete(); // hapus data
+        // Hapus file image_proof kalau ada
+        if ($registration->image_proof && Storage::exists($registration->image_proof)) {
+            Storage::delete($registration->image_proof);
+        }
+
+        // Hapus data dari database
+        $registration->delete();
+
         return redirect()->back()->with('success', 'Data berhasil dihapus!');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
