@@ -17,14 +17,14 @@ class Registration extends Model
         return $this->belongsTo(Event::class); 
     }
 
+
+
     protected static function booted()
     {
         static::deleting(function ($registration) {
-            if ($registration->payment_proof) {
-                $path = 'payment_proofs/' . $registration->payment_proof;
-
-                if (Storage::disk('public')->exists($path)) {
-                    Storage::disk('public')->delete($path);
+            if ($registration->image_proof) {
+                if (Storage::disk('public')->exists($registration->image_proof)) {
+                    Storage::disk('public')->delete($registration->image_proof);
                 }
             }
         });

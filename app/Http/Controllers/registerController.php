@@ -125,19 +125,13 @@ public function store(Request $request)
 public function destroy(Registration $registration)
 {
     try {
-        // Hapus file image_proof kalau ada
-        if ($registration->image_proof && Storage::exists($registration->image_proof)) {
-            Storage::delete($registration->image_proof);
-        }
-
-        // Hapus data dari database
-        $registration->delete();
-
+        $registration->delete(); // ini otomatis akan hapus image_proof juga
         return redirect()->back()->with('success', 'Data berhasil dihapus!');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
     }
 }
+
 
 public function search(Request $request)
 {
