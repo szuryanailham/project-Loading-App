@@ -63,13 +63,15 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $index + 1 }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            @if($event->poster_img)
-                               <img src="{{ asset('storage/events/posters/' . $event->poster_img) }}" 
-                                alt="{{ $event->name }}" 
-                                class="h-12 rounded">
-                            @else
-                                <span class="text-gray-500 italic">No Poster</span>
-                            @endif
+                            {{-- @dd($event->poster_img) --}}
+                           @if($event->poster_img)
+    <img src="{{ asset('storage/' . $event->poster_img) }}" 
+         alt="{{ $event->name }}" 
+         class="h-12 rounded">
+@else
+    <span class="text-gray-500">Belum ada poster</span>
+@endif
+
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $event->name }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}</td>
