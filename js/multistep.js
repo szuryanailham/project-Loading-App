@@ -4,10 +4,13 @@ const stepCount = document.getElementById("stepCount");
 const nextBtn = document.getElementById("nextBtn");
 const prevBtn = document.getElementById("prevBtn");
 const submitBtn = document.getElementById("submitBtn");
+
 let currentStep = 0;
+
 function showStep(step) {
     steps.forEach((s, i) => s.classList.toggle("hidden", i !== step));
     stepCount.textContent = step + 1;
+
     prevBtn.classList.toggle("hidden", step === 0);
     nextBtn.classList.toggle("hidden", step === steps.length - 1);
     submitBtn.classList.toggle("hidden", step !== steps.length - 1);
@@ -32,7 +35,7 @@ showStep(currentStep);
 // === Show Event Price ===
 const eventSelect = document.getElementById("eventSelect");
 const eventPrice = document.getElementById("eventPrice");
-const paymentEventPrice = document.getElementById("paymentEventPrice"); // 👈 Tambahan untuk Step 3
+const paymentEventPrice = document.getElementById("paymentEventPrice");
 
 eventSelect?.addEventListener("change", function () {
     const selectedOption = this.options[this.selectedIndex];
@@ -45,11 +48,11 @@ eventSelect?.addEventListener("change", function () {
             minimumFractionDigits: 0,
         });
 
-        // Tampilkan harga di Step 2
+        // Step 2
         eventPrice.textContent = `Harga: ${formattedPrice}`;
         eventPrice.classList.remove("hidden");
 
-        // Tampilkan harga di Step 3
+        // Step 3
         if (paymentEventPrice) {
             paymentEventPrice.textContent = `Harga: ${formattedPrice}`;
         }
@@ -73,9 +76,12 @@ form?.addEventListener("submit", function () {
     submitBtn.disabled = true;
 
     // Ubah text tombol
-    if (submitText) submitText.textContent = "Processing...";
+    if (submitText) {
+        submitText.textContent = "Processing...";
+    }
 
     // Tampilkan spinner
-    if (loadingSpinner) loadingSpinner.classList.remove("hidden");
+    if (loadingSpinner) {
+        loadingSpinner.classList.remove("hidden");
+    }
 });
-
