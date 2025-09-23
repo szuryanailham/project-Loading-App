@@ -22,9 +22,9 @@ class Registration extends Model
     protected static function booted()
     {
         static::deleting(function ($registration) {
-            if ($registration->image_proof) {
-                if (Storage::disk('public')->exists($registration->image_proof)) {
-                    Storage::disk('public')->delete($registration->image_proof);
+            if ($registration->payment_proof) {
+                if (Storage::disk('public')->exists($registration->payment_proof )) {
+                    Storage::disk('public')->delete($registration->payment_proof );
                 }
             }
         });

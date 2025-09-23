@@ -126,8 +126,8 @@ public function destroy(Registration $registration)
 {
     try {
         // Hapus file image_proof kalau ada di storage/app/public
-        if ($registration->image_proof && Storage::disk('public')->exists($registration->image_proof)) {
-            Storage::disk('public')->delete($registration->image_proof);
+        if ($registration->image_proof && Storage::disk('public')->exists($registration->payment_proof )) {
+            Storage::disk('public')->delete($registration->payment_proof );
         }
 
         // Hapus data dari database
