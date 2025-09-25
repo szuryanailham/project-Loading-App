@@ -53,7 +53,7 @@
       Home
     </a>
     <a 
-      href="https://wa.me/6285853438903"
+      href="https://wa.me/6281329687757"
       target="_blank" 
       class="px-6 py-2 text-white bg-amber-500 rounded-lg shadow hover:bg-amber-600 transition transform hover:scale-105">
       WhatsApp
