@@ -165,7 +165,7 @@
           Salin
         </button>
       </li>
-      <li><strong>Account Name:</strong> Yayasan Konseling Sehat</li>
+      <li><strong>Account Name:</strong>An. Dzulfiqar Afif Al Ghifari</li>
     </ul>
   </div>
 
