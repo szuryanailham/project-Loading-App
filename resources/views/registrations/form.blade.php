@@ -204,10 +204,26 @@
     </form>
   </div>
 
+  <script>
+    document
+    .getElementById("copyAccountBtn")
+    .addEventListener("click", async function () {
+        const number = this.getAttribute("data-number");
+        try {
+            await navigator.clipboard.writeText(number);
+            this.textContent = "Tersalin!";
+            setTimeout(() => {
+                this.textContent = "Salin";
+            }, 1500);
+        } catch (err) {
+            alert("Gagal menyalin. Silakan salin manual.");
+        }
+    });
+  </script>
+
   <!-- External JS untuk multi-step form -->
     <script src="/js/copypaste.js"></script>
   <script src="/js/multistep.js"></script>
   <script src="/js/inputSettings.js"></script>
-  <script src="/js/loading.js"></script>
 </body>
 </html>
