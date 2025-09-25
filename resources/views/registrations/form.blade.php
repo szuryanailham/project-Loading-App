@@ -204,12 +204,31 @@
     </form>
   </div>
 
-<script>
 
+<script>
+  // === Handle Submit Loading ===
+const form = document.getElementById("multiStepForm");
+const submitText = document.getElementById("submitText");
+const loadingSpinner = document.getElementById("loadingSpinner");
+
+form?.addEventListener("submit", function () {
+    // Disable tombol
+    submitBtn.disabled = true;
+
+    // Ubah text tombol
+    if (submitText) {
+        submitText.textContent = "Processing...";
+    }
+
+    // Tampilkan spinner
+    if (loadingSpinner) {
+        loadingSpinner.classList.remove("hidden");
+    }
+});
 </script>
   <!-- External JS untuk multi-step form -->
-    <script src="/js/copypaste.js"></script>
-    <script src="/js/loading.js"></script>
+  <script src="/js/copypaste.js"></script>
+  <script src="/js/loading.js"></script>
   <script src="/js/multistep.js"></script>
   <script src="/js/inputSettings.js"></script>
 
