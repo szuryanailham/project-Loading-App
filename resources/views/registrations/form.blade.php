@@ -176,7 +176,7 @@
           Selanjutnya
         </button>
         <button type="submit" id="submitBtn" 
-  class="hidden bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 flex items-center justify-center gap-2">
+  class=" bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 flex items-center justify-center gap-2">
   <span id="submitText">Submit</span>
   <svg id="loadingSpinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -193,6 +193,26 @@
   <!-- External JS untuk multi-step form -->
   <script src="/js/multistep.js"></script>
   <script src="/js/inputSettings.js"></script>
+<script>
+  // === Handle Submit Loading ===
+const form = document.getElementById("multiStepForm");
+const submitText = document.getElementById("submitText");
+const loadingSpinner = document.getElementById("loadingSpinner");
 
+form?.addEventListener("submit", function () {
+    // Disable tombol
+    submitBtn.disabled = true;
+
+    // Ubah text tombol
+    if (submitText) {
+        submitText.textContent = "Processing...";
+    }
+
+    // Tampilkan spinner
+    if (loadingSpinner) {
+        loadingSpinner.classList.remove("hidden");
+    }
+});
+</script>
 </body>
 </html>
