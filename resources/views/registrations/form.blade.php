@@ -62,7 +62,7 @@
   <input type="text" name="phone" 
          value="628" 
          class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500"
-         oninput="if(!this.value.startsWith('+628')) this.value='+628';">
+         oninput="if(!this.value.startsWith('+628')) this.value='628';">
 </div>
           <!-- Alamat -->
           <div>
