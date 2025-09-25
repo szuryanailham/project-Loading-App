@@ -40,10 +40,10 @@
   <div class="mt-4 bg-gray-100 rounded-lg p-3">
     <p class="text-gray-700 text-sm">Konfirmasi ke Admin:</p>
     <a 
-      href="https://wa.me/6285853438903" 
+      href="https://wa.me/6281329687757" 
       target="_blank" 
       class="text-green-600 font-semibold hover:underline">
-      +62 858-5356-7890
+     +62 813-2968-7757
     </a>
   </div>
 

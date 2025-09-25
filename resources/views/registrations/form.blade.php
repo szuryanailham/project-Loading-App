@@ -148,8 +148,23 @@
   <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg mb-4">
     <h2 class="font-semibold text-amber-800 mb-2">Informasi Pembayaran</h2>
     <ul class="text-gray-700 text-sm space-y-1">
-      <li><strong>Bank:</strong> BCA</li>
-      <li><strong>Account Number:</strong> 1234567890</li>
+      <li><strong>Bank:</strong> BRI</li>
+      <li class="flex items-center gap-2">
+        <div>
+          <div class="text-xs text-gray-500">Account Number</div>
+          <!-- ditampilkan ke user -->
+          <div class="text-sm font-mono text-amber-800">30760103 9166 532</div>
+        </div>
+        <!-- tombol copy -->
+        <button
+          type="button"
+          id="copyAccountBtn"
+          class="ml-auto px-3 py-1.5 text-sm rounded-md border bg-white hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300"
+          data-number="307601039166532"
+        >
+          Salin
+        </button>
+      </li>
       <li><strong>Account Name:</strong> Yayasan Konseling Sehat</li>
     </ul>
   </div>
@@ -185,34 +200,14 @@
     </path>
   </svg>
 </button>
-
       </div>
     </form>
   </div>
 
   <!-- External JS untuk multi-step form -->
+    <script src="/js/copypaste.js"></script>
   <script src="/js/multistep.js"></script>
   <script src="/js/inputSettings.js"></script>
-<script>
-  // === Handle Submit Loading ===
-const form = document.getElementById("multiStepForm");
-const submitText = document.getElementById("submitText");
-const loadingSpinner = document.getElementById("loadingSpinner");
-
-form?.addEventListener("submit", function () {
-    // Disable tombol
-    submitBtn.disabled = true;
-
-    // Ubah text tombol
-    if (submitText) {
-        submitText.textContent = "Processing...";
-    }
-
-    // Tampilkan spinner
-    if (loadingSpinner) {
-        loadingSpinner.classList.remove("hidden");
-    }
-});
-</script>
+  <script src="/js/loading.js"></script>
 </body>
 </html>
