@@ -40,10 +40,10 @@
   <div class="mt-4 bg-gray-100 rounded-lg p-3">
     <p class="text-gray-700 text-sm">Konfirmasi ke Admin:</p>
     <a 
-      href="https://wa.me/6281329687757" 
+      href="https://wa.me/6287865999748" 
       target="_blank" 
       class="text-green-600 font-semibold hover:underline">
-     +62 813-2968-7757
+     +62 878-6599-9748
     </a>
   </div>
 
@@ -53,7 +53,7 @@
       Home
     </a>
     <a 
-      href="https://wa.me/6281329687757"
+      href="https://wa.me/6287865999748"
       target="_blank" 
       class="px-6 py-2 text-white bg-amber-500 rounded-lg shadow hover:bg-amber-600 transition transform hover:scale-105">
       WhatsApp
