@@ -8,6 +8,7 @@ use App\Models\Registration;
 use App\Exports\RegistrationsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreEventRegistrationRequest;
 class registerController extends Controller
 {
     /**
@@ -43,57 +44,40 @@ return view('dashboard-admin.registration', compact('registrations'));
     /**
      * Store a newly created resource in storage.
      */
-public function store(Request $request)
+
+public function store(StoreEventRegistrationRequest $request)
 {
     try {
-        // Validasi data
-        $validated = $request->validate([
-            'name'          => 'required|string|max:255',
-            'email'         => 'required|email|max:255',
-            'phone'         => 'nullable|string|max:20',
-            'Alamat'        => 'nullable|string|max:255',
-            'birth_date'    => 'nullable|date',
-            'gender'        => 'nullable|in:male,female',
-            'event_id'      => 'required|integer|exists:events,id',
-            'source'        => 'nullable|string|max:50',
-            'social_media'  => 'nullable|string|max:50', // tambahkan validasi
-            'notes'         => 'nullable|string',
-            'payment_proof' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-        ]);
+        $validated = $request->validated();
 
-        // Handle upload bukti pembayaran
         if ($request->hasFile('payment_proof')) {
             $filename = time() . '_' . $request->file('payment_proof')->getClientOriginalName();
             $path = $request->file('payment_proof')->storeAs('payment_proofs', $filename, 'public');
             $validated['payment_proof'] = $path;
         }
 
-        // Jika source = social_media, simpan field social_media
         if ($request->source === 'social_media') {
             $validated['source'] = $request->social_media;
         }
 
-        // Jika ada input other_source, override source
         if ($request->filled('other_source')) {
             $validated['source'] = $request->other_source;
         }
 
-        // Simpan ke database
-       $registration = Registration::create($validated);
-       $eventName = Event::where('id', $registration->event_id)->value('name');
+        $registration = Registration::create($validated);
+        $eventName = Event::where('id', $registration->event_id)->value('name');
         sleep(2);
-        return view('registrations.success');
-
+        return view('registrations.success', [
+            'eventName' => $eventName,
+            'registration' => $registration,
+        ]);
 
     } catch (\Exception $e) {
-        // Jika ada error selain validasi
         return redirect()->back()
             ->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])
             ->withInput();
     }
 }
-
-
 
     /**
      * Display the specified resource.
