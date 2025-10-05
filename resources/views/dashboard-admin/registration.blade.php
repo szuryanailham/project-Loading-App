@@ -88,13 +88,24 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <!-- Delete Action -->
-                            <form action="{{ route('registrations.destroy', $registration->id) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">
-                                    Delete
-                                </button>
-                            </form>
+                           <form 
+                            id="deleteForm-{{ $registration->id }}" 
+                            action="{{ route('registrations.destroy', $registration->id) }}" 
+                            method="POST" 
+                            class="inline"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <button 
+                                type="button" 
+                                class="delete-btn px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                                data-id="{{ $registration->id }}"
+                                data-name="{{ $registration->name }}"  {{-- ← nama data ditambahkan di atribut --}}
+                            >
+                                Delete
+                            </button>
+                        </form>
+
                         </td>
                     </tr>
                 @empty
@@ -113,4 +124,6 @@
 
     <!-- Load JavaScript eksternal -->
     <script src="/js/alert.js"></script>
+    <script src="/js/alertDelete.js"></script>
+    
 @endsection
