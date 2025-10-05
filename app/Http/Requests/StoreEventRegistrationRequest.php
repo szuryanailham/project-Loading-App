@@ -23,7 +23,6 @@ class StoreEventRegistrationRequest extends FormRequest
             'gender'        => 'required|in:male,female',
             'event_id'      => 'required|integer|exists:events,id',
             'source'        => 'required|string|max:50',
-            'social_media'  => 'required|string|max:50',
             'notes'         => 'required|string',
             'payment_proof' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ];
