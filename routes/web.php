@@ -1,45 +1,71 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\eventsController;
-use App\Http\Controllers\registerController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
+|
+| Di sini didefinisikan semua route untuk aplikasi.
+| Struktur sudah dibagi menjadi:
+| - Route Public (Landing & Pendaftaran Event)
+| - Route Admin (Dashboard & Manajemen Data)
+|
 */
 
-// Landing page
+// ===============================
+// 🔸 PUBLIC ROUTES
+// ===============================
+
+// Landing Page
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-// Registrasi event (User)
-Route::get('/daftar-event', [registerController::class, 'index'])
+// Form pendaftaran event
+Route::get('/daftar-event', [RegisterController::class, 'index'])
     ->name('event.register.form');
-Route::post('/event/register', [registerController::class, 'store'])
+
+// Simpan data pendaftaran event
+Route::post('/event/register', [RegisterController::class, 'store'])
     ->name('event.register');
 
-// Admin dashboard
+
+// ===============================
+// 🔸 ADMIN DASHBOARD ROUTES
+// ===============================
 Route::prefix('admin/dashboard')->group(function () {
+
+    // Dashboard utama
     Route::get('/', function () {
         return view('dashboard-admin.dashboard');
     })->name('admin.dashboard');
 
-Route::get('/registration', [registerController::class, 'showAll'])
+    // Data registrasi event (tabel)
+    Route::get('/registration', [RegisterController::class, 'showAll'])
         ->name('registrations.index');
-        
-Route::resource('events',  eventsController::class);
 
+
+    // Resource event CRUD
+    Route::resource('events', EventsController::class);
 });
 
-// Registrations management
-Route::delete('/registrations/{registration}', [registerController::class, 'destroy'])
+
+// ===============================
+// 🔸 REGISTRATION MANAGEMENT ROUTES (GLOBAL)
+// ===============================
+
+// Hapus data registrasi
+Route::delete('/registrations/{registration}', [RegisterController::class, 'destroy'])
     ->name('registrations.destroy');
 
-Route::get('/registrations/export', [registerController::class, 'export'])
+// Ekspor data registrasi
+Route::get('/registrations/export', [RegisterController::class, 'export'])
     ->name('registrations.export');
 
-Route::get('/registrations/search', [registerController::class, 'search'])
+// Fitur pencarian registrasi
+Route::get('/registrations/search', [RegisterController::class, 'search'])
     ->name('registrations.search');
