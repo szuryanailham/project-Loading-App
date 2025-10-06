@@ -29,7 +29,7 @@ public function export()
 public function showAll()
 {
 $registrations = Registration::with('event')->orderBy('created_at', 'desc')->paginate(10);
-return view('dashboard-admin.registration', compact('registrations'));
+return view('dashboard-admin.registration.index', compact('registrations'));
 }
 
 
@@ -136,7 +136,8 @@ public function search(Request $request)
         ->orderBy('created_at', 'desc')
         ->paginate(10);
 
-    return view('dashboard-admin.registration', compact('registrations'));
+    return view('dashboard-admin.registration.index', compact('registrations'));
 }
+
 
 }

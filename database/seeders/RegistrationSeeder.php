@@ -10,6 +10,6 @@ class RegistrationSeeder extends Seeder
     public function run(): void
     {
         // Membuat 20 data dummy registrasi
-        Registration::factory()->count(20)->create();
+        Registration::factory()->count(30)->create();
     }
 }
