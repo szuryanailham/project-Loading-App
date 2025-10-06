@@ -126,13 +126,6 @@
                 </table>
             </div>
 
-            <div id="notesModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg shadow-lg p-6 w-96 max-h-[70vh] overflow-y-auto">
-                <p id="notesContent" class="text-gray-700 whitespace-pre-line"></p>
-                <button onclick="closeNotes()" class="mt-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Tutup</button>
-            </div>
-            </div>
-
 
 
     <!-- ====== PAGINATION ====== -->
