@@ -133,8 +133,22 @@
         {{ $registrations->appends(['search' => request('search')])->links() }}
     </div>
 
+    <script>
+        window.showNotes = function (notes) {
+        Swal.fire({
+            title: "Catatan",
+            text: notes,
+            confirmButtonText: "Tutup",
+            confirmButtonColor: "#ef4444",
+            customClass: {
+                popup: "rounded-xl shadow-lg",
+            },
+        });
+        };
+    </script>
+
     <!-- Load JavaScript eksternal -->
     <script src="/js/register/alert.js"></script>
     <script src="/js/register/alertDelete.js"></script>
-    <script src="/js/register/popupNote.js"></script>
+    {{-- <script src="/js/register/popupNote.js"></script> --}}
 @endsection
