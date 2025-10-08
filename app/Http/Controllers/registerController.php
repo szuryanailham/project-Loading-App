@@ -9,7 +9,7 @@ use App\Exports\RegistrationsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreEventRegistrationRequest;
-class RegisterController extends Controller
+class registerController extends Controller
 {
     /**
      * Display a listing of the resource.
