@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\eventsController;
-use App\Http\Controllers\registerController;
-
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,14 +26,25 @@ Route::get('/', function () {
 })->name('home');
 
 // Form pendaftaran event
-Route::get('/daftar-event', [registerController::class, 'index'])
+Route::get('/daftar-event', [RegisterController::class, 'index'])
     ->name('event.register.form');
 
 // Simpan data pendaftaran event
-Route::post('/event/register', [registerController::class, 'store'])
+Route::post('/event/register', [RegisterController::class, 'store'])
     ->name('event.register');
 
 
+    // === Route Auth ===
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+// === Route Protected ===
+Route::middleware('auth')->group(function () {
 // ===============================
 // 🔸 ADMIN DASHBOARD ROUTES
 // ===============================
@@ -45,12 +56,12 @@ Route::prefix('admin/dashboard')->group(function () {
     })->name('admin.dashboard');
 
     // Data registrasi event (tabel)
-    Route::get('/registration', [registerController::class, 'showAll'])
+    Route::get('/registration', [RegisterController::class, 'showAll'])
         ->name('registrations.index');
 
 
     // Resource event CRUD
-    Route::resource('events', eventsController::class);
+    Route::resource('events', EventsController::class);
 });
 
 
@@ -59,13 +70,17 @@ Route::prefix('admin/dashboard')->group(function () {
 // ===============================
 
 // Hapus data registrasi
-Route::delete('/registrations/{registration}', [registerController::class, 'destroy'])
+Route::delete('/registrations/{registration}', [RegisterController::class, 'destroy'])
     ->name('registrations.destroy');
 
 // Ekspor data registrasi
-Route::get('/registrations/export', [registerController::class, 'export'])
+Route::get('/registrations/export', [RegisterController::class, 'export'])
     ->name('registrations.export');
 
 // Fitur pencarian registrasi
-Route::get('/registrations/search', [registerController::class, 'search'])
+Route::get('/registrations/search', [RegisterController::class, 'search'])
     ->name('registrations.search');
+});
+
+
+

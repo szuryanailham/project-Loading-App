@@ -27,16 +27,16 @@
         </div>
 
         <!-- Logout Button -->
-        <form action="" method="POST" class="shrink-0">
-            @csrf
-            <button 
-                type="submit" 
-                class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-red-500 text-white text-sm sm:text-base rounded hover:bg-red-600 transition whitespace-nowrap">
-                Logout
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/>
-                </svg>
-            </button>
-        </form>
+        <form action="{{ route('logout') }}" method="POST" class="shrink-0" id="logoutForm">
+  @csrf
+  <button 
+      type="submit" 
+      class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-red-500 text-white text-sm sm:text-base rounded hover:bg-red-600 transition whitespace-nowrap">
+      Logout
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/>
+      </svg>
+  </button>
+</form>
     </div>
 </header>
