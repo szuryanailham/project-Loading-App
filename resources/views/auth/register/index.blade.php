@@ -2,7 +2,7 @@
 
 @section('title', 'Daftar Akun')
 @section('heading', 'Buat Akun Baru')
-@section('subheading', 'Pilih peran sesuai kebutuhan')
+@section('subheading', 'Daftar Sebagai Contributor')
 
 @section('content')
 <form method="POST" action="{{ route('register') }}" class="space-y-5">
@@ -14,6 +14,7 @@
       Nama Lengkap
     </label>
     <input id="name" type="text" name="name" required
+           value="{{ old('name') }}"
            class="bg-white border border-amber-300 text-gray-900 rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5 placeholder-gray-400 dark:bg-gray-100 dark:text-gray-800"
            placeholder="Nama lengkap">
   </div>
@@ -24,6 +25,7 @@
       Email
     </label>
     <input id="email" type="email" name="email" required
+           value="{{ old('email') }}"
            class="bg-white border border-amber-300 text-gray-900 rounded-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5 placeholder-gray-400 dark:bg-gray-100 dark:text-gray-800"
            placeholder="name@domain.com">
   </div>
@@ -63,9 +65,11 @@
   </p>
 </form>
 
-<!-- Snackbar -->
+
+@endsection
+
 <div id="snackbar"
-     class="fixed bottom-6 right-6 hidden bg-gray-800 text-white px-4 py-3 rounded-lg shadow-lg z-50 transition-all duration-500">
+     class="fixed bottom-6 right-6 hidden bg-gray-800 text-white px-5 py-3 rounded-lg shadow-xl z-50 transition-all duration-500 opacity-0">
   <span id="snackbar-message"></span>
 </div>
 
@@ -73,6 +77,7 @@
   function showSnackbar(message, type = 'success') {
     const snackbar = document.getElementById('snackbar');
     const messageSpan = document.getElementById('snackbar-message');
+
     messageSpan.textContent = message;
 
     snackbar.classList.remove('bg-gray-800', 'bg-green-600', 'bg-red-600');
@@ -81,18 +86,23 @@
     snackbar.classList.remove('hidden', 'opacity-0');
     snackbar.classList.add('opacity-100');
 
+
     setTimeout(() => {
       snackbar.classList.add('opacity-0');
       setTimeout(() => snackbar.classList.add('hidden'), 500);
-    }, 3000);
+    }, 4000);
   }
+
 
   @if (session('success'))
     showSnackbar("{{ session('success') }}", 'success');
   @endif
 
-  @if (session('error'))
-    showSnackbar("{{ session('error') }}", 'error');
+  @if (session('failed'))
+    showSnackbar("{{ session('failed') }}", 'error');
+  @endif
+
+  @if ($errors->any())
+    showSnackbar("{{ $errors->first() }}", 'error');
   @endif
 </script>
-@endsection
