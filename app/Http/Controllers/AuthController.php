@@ -33,10 +33,8 @@ class AuthController extends Controller
             'role'     => $request->role, // pastikan kolom ini ada di tabel users
         ]);
 
-        // Login otomatis setelah berhasil register
         Auth::login($user);
 
-        // Redirect ke dashboard dengan pesan sukses
         return redirect()->route('admin.dashboard')->with('success', 'Registrasi berhasil! Selamat datang, ' . $user->name);
     }
 
@@ -47,22 +45,27 @@ class AuthController extends Controller
     }
 
     // Proses Login
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
-        ]);
+public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email'    => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('admin.dashboard')->with('success', 'Login berhasil! Selamat datang');
-        }
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ]);
+        $userName = Auth::user()->name;
+
+        return redirect()->route('admin.dashboard')
+            ->with('success', "Login berhasil! Selamat datang, {$userName} 👋");
     }
+
+    return back()->withErrors([
+        'email' => 'Email atau password salah.',
+    ]);
+}
+
 
     // Logout
     public function logout(Request $request)
