@@ -16,29 +16,33 @@ class AuthController extends Controller
     }
 
     // Proses Register
- public function register(Request $request)
+public function register(Request $request)
+{
+    $request->validate([
+        'name'                  => 'required|string|max:255',
+        'email'                 => 'required|email|unique:users',
+        'password'              => 'required|string|min:6|confirmed',
+    ]);
 
-    {
-        $request->validate([
-            'name'                  => 'required|string|max:255',
-            'email'                 => 'required|email|unique:users',
-            'password'              => 'required|string|min:6|confirmed',
-        ]);
-
+    try {
         // Buat user baru
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'role'     => $request->role, // pastikan kolom ini ada di tabel users
         ]);
 
-        // Login otomatis setelah berhasil register
+        // Login otomatis setelah registrasi
         Auth::login($user);
-
-        // Redirect ke dashboard dengan pesan sukses
-        return redirect()->route('admin.dashboard')->with('success', 'Registrasi berhasil! Selamat datang, ' . $user->name);
+        return redirect()->route('admin.dashboard')
+            ->with('success', 'Registrasi berhasil! Selamat datang, ' . $user->name);
+    } catch (\Exception $e) {
+        return back()
+            ->withInput()
+            ->with('failed', 'Registrasi gagal! Silakan coba lagi atau hubungi admin.');
     }
+}
+
 
     // Halaman Login
     public function showLogin()
@@ -47,22 +51,27 @@ class AuthController extends Controller
     }
 
     // Proses Login
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
-        ]);
+public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email'    => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('admin.dashboard')->with('success', 'Login berhasil! Selamat datang');
-        }
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ]);
+        $userName = Auth::user()->name;
+
+        return redirect()->route('admin.dashboard')
+            ->with('success', "Login berhasil! Selamat datang, {$userName} 👋");
     }
+
+    return back()->withErrors([
+        'email' => 'Email atau password salah.',
+    ]);
+}
+
 
     // Logout
     public function logout(Request $request)

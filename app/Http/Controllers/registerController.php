@@ -45,15 +45,43 @@ return view('dashboard-admin.registration.index', compact('registrations'));
      * Store a newly created resource in storage.
      */
 
-public function store(StoreEventRegistrationRequest $request)
+    public function store(StoreEventRegistrationRequest $request)
 {
     try {
         $validated = $request->validated();
-
         if ($request->hasFile('payment_proof')) {
-            $filename = time() . '_' . $request->file('payment_proof')->getClientOriginalName();
-            $path = $request->file('payment_proof')->storeAs('payment_proofs', $filename, 'public');
-            $validated['payment_proof'] = $path;
+            $file = $request->file('payment_proof');
+            $filename = time() . '_' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $webpName = $filename . '.webp';
+            $path = storage_path('app/public/payment_proofs/' . $webpName);
+
+            // Ambil MIME type
+            $mime = $file->getMimeType();
+
+            // Buat image resource sesuai tipe
+            switch ($mime) {
+                case 'image/jpeg':
+                    $image = imagecreatefromjpeg($file->getPathname());
+                    break;
+                case 'image/png':
+                    $image = imagecreatefrompng($file->getPathname());
+                    imagepalettetotruecolor($image); 
+                    imagealphablending($image, true);
+                    imagesavealpha($image, true);
+                    break;
+                case 'image/webp':
+                    // Jika sudah WebP, cukup simpan ulang
+                    $file->storeAs('payment_proofs', $webpName, 'public');
+                    $validated['payment_proof'] = 'payment_proofs/' . $webpName;
+                    break;
+                default:
+                    throw new \Exception('Format gambar tidak didukung.');
+            }
+
+            imagewebp($image, $path, 80);
+            imagedestroy($image);
+
+            $validated['payment_proof'] = 'payment_proofs/' . $webpName;
         }
 
         if ($request->source === 'social_media') {
@@ -71,13 +99,13 @@ public function store(StoreEventRegistrationRequest $request)
             'eventName' => $eventName,
             'registration' => $registration,
         ]);
-
     } catch (\Exception $e) {
         return redirect()->back()
             ->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])
             ->withInput();
     }
 }
+
 
     /**
      * Display the specified resource.
