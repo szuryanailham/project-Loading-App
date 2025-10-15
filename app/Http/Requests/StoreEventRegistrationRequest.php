@@ -18,7 +18,7 @@ class StoreEventRegistrationRequest extends FormRequest
             'name'          => 'required|string|max:255',
             'email'         => 'required|email|max:255',
             'phone'         => 'required|string|max:20',
-            'Alamat'        => 'required|string|max:255',
+            'alamat'        => 'required|string|max:255',
             'birth_date'    => 'required|date',
             'gender'        => 'required|in:male,female',
             'event_id'      => 'required|integer|exists:events,id',

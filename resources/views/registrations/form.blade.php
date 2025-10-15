@@ -110,7 +110,7 @@
       <!-- Alamat -->
       <div>
         <label class="block text-sm font-medium text-gray-700">Alamat</label>
-        <input type="text" name="Alamat" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500" required>
+        <input type="text" name="alamat" class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-amber-500" required>
       </div>
 
       <!-- Tanggal Lahir -->

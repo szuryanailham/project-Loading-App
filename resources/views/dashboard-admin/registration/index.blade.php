@@ -100,9 +100,10 @@
                                     @endif
                                 </td>
 
-                                  <td class="px-6 py-4 whitespace-nowrap">
-                                     {{ $registration->created_at->format('d M Y H:i') }}
-                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                        {{ \Carbon\Carbon::parse($registration->created_at)->translatedFormat('d F Y') }}
+                            </td>
+
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <form 
