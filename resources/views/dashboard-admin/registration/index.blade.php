@@ -56,9 +56,11 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alamat</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Register</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
@@ -78,6 +80,7 @@
                                         -
                                     @endif
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $registration->alamat }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $registration->event->name ?? '-' }}</td>
                                 
 
@@ -96,6 +99,10 @@
                                         <span class="text-gray-500">Not Uploaded</span>
                                     @endif
                                 </td>
+
+                                  <td class="px-6 py-4 whitespace-nowrap">
+                                     {{ $registration->created_at->format('d M Y H:i') }}
+                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <form 
