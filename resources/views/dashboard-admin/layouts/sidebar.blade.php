@@ -17,7 +17,7 @@
 
     <!-- Navigasi -->
     <nav class="flex-1 space-y-2">
-        <a href="#" 
+        <a href="/admin/dashboard" 
            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-amber-100 transition 
                   {{ request()->routeIs('dashboard') ? 'bg-amber-200' : '' }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,7 +26,7 @@
             <span class="font-medium">Dashboard</span>
         </a>
 
-        <a href="#" 
+        <a href="/admin/dashboard/users" 
            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-amber-100 transition 
                   {{ request()->routeIs('users.*') ? 'bg-amber-200' : '' }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

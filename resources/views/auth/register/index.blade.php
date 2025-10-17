@@ -19,6 +19,24 @@
            placeholder="Nama lengkap">
   </div>
 
+  <!-- Nomor HP -->
+ <div>
+  <label for="phone_number" class="block mb-2 text-sm font-medium text-amber-700 dark:text-amber-300">
+    Nomor HP
+  </label>
+  <div class="flex">
+    <span class="inline-flex items-center px-3 text-sm text-gray-700 bg-amber-100 border border-r-0 border-amber-300 rounded-l-lg">
+      +62
+    </span>
+    <input id="phone_number" type="text" name="phone_number"
+           value="{{ old('phone_number') }}"
+           class="bg-white border border-amber-300 text-gray-900 rounded-r-lg focus:ring-amber-400 focus:border-amber-400 block w-full p-2.5 placeholder-gray-400 dark:bg-gray-100 dark:text-gray-800"
+           placeholder="81234567890" required>
+  </div>
+  <p class="text-xs text-gray-500 mt-1">Masukkan nomor tanpa angka 0 di depan (contoh: 81234567890)</p>
+</div>
+
+
   <!-- Email -->
   <div>
     <label for="email" class="block mb-2 text-sm font-medium text-amber-700 dark:text-amber-300">
@@ -64,8 +82,6 @@
     </a>
   </p>
 </form>
-
-
 @endsection
 
 <div id="snackbar"
@@ -86,13 +102,11 @@
     snackbar.classList.remove('hidden', 'opacity-0');
     snackbar.classList.add('opacity-100');
 
-
     setTimeout(() => {
       snackbar.classList.add('opacity-0');
       setTimeout(() => snackbar.classList.add('hidden'), 500);
     }, 4000);
   }
-
 
   @if (session('success'))
     showSnackbar("{{ session('success') }}", 'success');

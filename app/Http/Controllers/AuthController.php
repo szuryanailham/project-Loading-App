@@ -19,21 +19,31 @@ class AuthController extends Controller
 public function register(Request $request)
 {
     $request->validate([
-        'name'                  => 'required|string|max:255',
-        'email'                 => 'required|email|unique:users',
-        'password'              => 'required|string|min:6|confirmed',
+        'name'          => 'required|string|max:255',
+        'email'         => 'required|email|unique:users',
+        'phone_number'  => 'required|digits_between:9,15|regex:/^[0-9]+$/',
+        'password'      => 'required|string|min:6|confirmed',
+    ], [
+        'phone_number.required' => 'Nomor HP wajib diisi.',
+        'phone_number.digits_between' => 'Nomor HP harus terdiri dari 9 hingga 15 digit.',
+        'phone_number.regex' => 'Nomor HP hanya boleh berisi angka.',
     ]);
 
     try {
+        // Format nomor HP: pastikan awalan 62 (tanpa 0 di depan)
+        $phone = '62' . ltrim($request->phone_number, '0');
+
         // Buat user baru
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
+            'name'         => $request->name,
+            'email'        => $request->email,
+            'phone_number' => $phone,
+            'password'     => Hash::make($request->password),
         ]);
 
         // Login otomatis setelah registrasi
         Auth::login($user);
+
         return redirect()->route('admin.dashboard')
             ->with('success', 'Registrasi berhasil! Selamat datang, ' . $user->name);
     } catch (\Exception $e) {
@@ -42,6 +52,7 @@ public function register(Request $request)
             ->with('failed', 'Registrasi gagal! Silakan coba lagi atau hubungi admin.');
     }
 }
+
 
 
     // Halaman Login

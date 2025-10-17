@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\eventsController;
 use App\Http\Controllers\registerController;
@@ -45,6 +46,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // === Route Protected ===
 Route::middleware('auth')->group(function () {
+
 // ===============================
 // 🔸 ADMIN DASHBOARD ROUTES
 // ===============================
@@ -58,6 +60,11 @@ Route::prefix('admin/dashboard')->group(function () {
     // Data registrasi event (tabel)
     Route::get('/registration', [registerController::class, 'showAll'])
         ->name('registrations.index');
+
+
+    // Data users (tabel)
+    Route::get('/users', [UserController::class, 'index'])
+        ->name('users.index');
 
 
     // Resource event CRUD
