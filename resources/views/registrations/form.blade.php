@@ -266,5 +266,57 @@ form?.addEventListener("submit", function () {
 });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const ua = navigator.userAgent.toLowerCase();
+
+  // Cek apakah dibuka lewat in-app browser Instagram
+  if (ua.includes("instagram")) {
+    const currentUrl = window.location.href;
+
+    // Jika Android → pakai intent:// agar buka di Chrome
+    if (ua.includes("android")) {
+      const intentUrl = `intent://${currentUrl.replace(/^https?:\/\//, "")}#Intent;scheme=https;package=com.android.chrome;end`;
+
+      // Redirect ke Chrome
+      window.location.href = intentUrl;
+
+      // Fallback (jika Chrome tidak ada atau gagal)
+      setTimeout(() => {
+        showManualButton(currentUrl, "Buka di Browser (Chrome)");
+      }, 1500);
+    }
+
+    // Jika iPhone → redirect buka di Safari
+    else if (/iphone|ipad|ipod/.test(ua)) {
+      // Safari tidak mendukung intent, jadi pakai redirect biasa
+      window.location.href = currentUrl.replace("https://", "x-safari-https://");
+
+      // Fallback
+      setTimeout(() => {
+        showManualButton(currentUrl, "Buka di Safari");
+      }, 1500);
+    }
+
+    // Fungsi tampilkan tombol manual jika redirect gagal
+    function showManualButton(url, label) {
+      document.body.innerHTML = `
+        <div style="padding:20px;text-align:center;">
+          <p style="font-size:15px;margin-bottom:12px;">
+            Untuk mengisi form dengan lancar, silakan buka halaman ini di browser kamu.
+          </p>
+          <a href="${url}" 
+            style="display:inline-block;background:#000;color:#fff;
+            padding:10px 18px;border-radius:8px;text-decoration:none;">
+            ${label}
+          </a>
+        </div>
+      `;
+    }
+  }
+});
+</script>
+
+
 </body>
 </html>
