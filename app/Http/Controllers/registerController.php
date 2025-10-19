@@ -167,5 +167,9 @@ public function search(Request $request)
     return view('dashboard-admin.registration.index', compact('registrations'));
 }
 
+public function testimonyStore(Request $request){
+     return view('registrations.testimony.create');
+}
+
 
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\eventsController;
 use App\Http\Controllers\registerController;
@@ -30,10 +31,15 @@ Route::get('/', function () {
 Route::get('/daftar-event', [registerController::class, 'index'])
     ->name('event.register.form');
 
-// Simpan data pendaftaran event
 Route::post('/event/register', [registerController::class, 'store'])
-    ->name('event.register');
+    ->name('event.register.store');
 
+// get form feedback
+Route::get('/event/feedback', [FeedbackController::class, 'index'])
+    ->name('event.feedback.index');
+
+Route::post('/event/feedback/store', [FeedbackController::class, 'store'])
+    ->name('event.feedback.store');
 
     // === Route Auth ===
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -65,6 +71,9 @@ Route::prefix('admin/dashboard')->group(function () {
     // Data users (tabel)
     Route::get('/users', [UserController::class, 'index'])
         ->name('users.index');
+
+        Route::get('/feedback', [FeedbackController::class, 'show'])
+        ->name('feedback.index');
 
 
     // Resource event CRUD

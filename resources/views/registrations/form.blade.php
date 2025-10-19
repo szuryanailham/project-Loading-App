@@ -67,7 +67,7 @@
 @endif
 
     <!-- FORM MULTI STEP -->
- <form id="multiStepForm" action="{{ route('event.register') }}" method="POST" enctype="multipart/form-data">
+ <form id="multiStepForm" action="{{ route('event.register.store') }}" method="POST" enctype="multipart/form-data">
   @csrf
 
   <!-- Progress Indicator -->
