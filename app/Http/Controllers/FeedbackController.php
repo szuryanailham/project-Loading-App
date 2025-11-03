@@ -47,16 +47,6 @@ public function index()
             'comment' => 'nullable|string',
         ]);
 
-     $eventId = (int) $request->event_id;
-    $isRegistered = Registration::where('event_id', $eventId)
-    ->where('email', $request->email)
-    ->exists();
-
-        if (! $isRegistered) {
-             return back()->withErrors([
-            'email' => 'Email ini tidak ditemukan di data pendaftaran event.'
-        ])->withInput();
-        }
 
         feedback::create([
             'name' => $request->name,
@@ -66,10 +56,8 @@ public function index()
             'comment' => $request->comment,
         ]);
 
-            return redirect()->route('home')
-        ->with('success', 'Terima kasih atas feedback yang telah kamu berikan!');
+            return view('registrations.feedback.success');
 
-        
     }
 
     /**

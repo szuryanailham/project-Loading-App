@@ -35,8 +35,8 @@ Route::post('/event/register', [registerController::class, 'store'])
     ->name('event.register.store');
 
 // get form feedback
-Route::get('/event/feedback', [FeedbackController::class, 'index'])
-    ->name('event.feedback.index');
+Route::get('/class/feedback', [FeedbackController::class, 'index'])
+    ->name('class.feedback.index');
 
 Route::post('/event/feedback/store', [FeedbackController::class, 'store'])
     ->name('event.feedback.store');
