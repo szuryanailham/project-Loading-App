@@ -72,8 +72,16 @@ Route::prefix('admin/dashboard')->group(function () {
     Route::get('/users', [UserController::class, 'index'])
         ->name('users.index');
 
-        Route::get('/feedback', [FeedbackController::class, 'show'])
+     Route::get('/feedback', [FeedbackController::class, 'show'])
         ->name('feedback.index');
+
+     Route::delete('/feedback', [FeedbackController::class, 'show'])
+        ->name('feedback.index');
+    
+        // Hapus feedback berdasarkan ID
+    Route::delete('/feedback/{feedback}', [FeedbackController::class, 'destroy'])
+    ->name('feedback.destroy');
+    
 
 
     // Resource event CRUD

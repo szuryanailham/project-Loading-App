@@ -90,8 +90,17 @@ public function index()
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(feedback $feedback)
-    {
-        //
+    public function destroy(Feedback $feedback)
+{
+    try {
+        $feedback->delete();
+        return redirect()
+            ->route('feedback.index')
+            ->with('success', 'Feedback berhasil dihapus.');
+    } catch (\Exception $e) {
+        return redirect()
+            ->route('feedback.index')
+            ->with('error', 'Terjadi kesalahan saat menghapus feedback.');
     }
+}
 }

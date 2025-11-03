@@ -70,10 +70,10 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <form 
-                                id="deleteForm-{{ $feedback->id }}" 
-                                action="" 
-                                method="POST" 
-                                class="inline"
+                            id="deleteForm-{{ $feedback->id }}" 
+                            action="{{ route('feedback.destroy', $feedback->id) }}" 
+                            method="POST" 
+                            class="inline"
                             >
                                 @csrf
                                 @method('DELETE')
@@ -102,21 +102,58 @@
         {{ $feedbacks->appends(['search' => request('search')])->links() }}
     </div>
 
+    <!-- ====== JS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        // Komentar / Saran
         window.showComment = function (comment) {
             Swal.fire({
                 title: "Komentar / Saran",
                 text: comment,
                 confirmButtonText: "Tutup",
-                confirmButtonColor: "#ef4444",
-                customClass: {
-                    popup: "rounded-xl shadow-lg",
-                },
+                confirmButtonColor: "#f59e0b",
+                customClass: { popup: "rounded-xl shadow-lg" },
             });
         };
-    </script>
 
-    <!-- Load JavaScript eksternal -->
-    <script src="/js/register/alert.js"></script>
-    <script src="/js/register/alertDelete.js"></script>
+        // Hapus Feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const feedbackName = this.dataset.name;
+                    const feedbackId = this.dataset.id;
+                    const form = document.getElementById(`deleteForm-${feedbackId}`);
+
+                    Swal.fire({
+                        title: 'Yakin ingin menghapus?',
+                        text: `Feedback dari "${feedbackName}" akan dihapus permanen.`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#ef4444',
+                        cancelButtonColor: '#6b7280',
+                        confirmButtonText: 'Ya, hapus',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+
+            // Tutup alert manual
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', () => btn.parentElement.remove());
+            });
+
+            // Auto hide alert
+            setTimeout(() => {
+                document.querySelectorAll('.alert').forEach(alert => {
+                    alert.classList.add('opacity-0', 'transition', 'duration-500');
+                    setTimeout(() => alert.remove(), 500);
+                });
+            }, 3000);
+        });
+    </script>
 @endsection
